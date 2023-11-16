@@ -1,0 +1,102 @@
+body {
+    text-align: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    background-image: url(Background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.interh1 {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.interh2 {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.forgot-username {
+    width: 307px;
+    height: 351px;
+    margin-left: 160px;
+    position: relative;
+    border-radius: 30px;
+    flex-shrink: 0;
+    background: #FFF;
+}
+
+.lost-password {
+    width: 307px;
+    height: 351px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #FFF;
+    margin-left: 560px;
+    margin-top: -350px;
+}
+
+.lost-email {
+    width: 307px;
+    height: 351px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #FFF;
+    margin-left: 980px;
+    margin-top: -350px;
+}
+
+.rectangleh1 {
+    color: #979797;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.rectanglep {
+    color: #B8B8B8;
+    text-align: left;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 0 20px;
+}
+
+.forgot-username-svg {
+    fill: #CFCFCF;
+    margin-top:20px;
+    width: 145px;
+    height: 145px;
+    flex-shrink: 0;
+}
+
+.lost-password-svg {
+    fill: #CFCFCF;
+    margin-top:20px;
+    width: 145px;
+    height: 145px;
+    flex-shrink: 0;
+}
+
+.lost-email-svg {
+    fill: #CFCFCF;
+    margin-top:40px;
+    width: 141.778px;
+    height: 116px;
+    flex-shrink: 0;
+}

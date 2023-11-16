@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    background-image: url(Background.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+form {
+    margin-top: 100px;
+}
+
+a {
+    color: inherit;
+    text-decoration: underline; 
+    cursor: pointer;
+  }
+
+.username input {
+    font: 700 12px Khand;
+    color: #000000;
+    line-height: normal;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #F0F0F0; 
+    width: 370px;
+    height: 40px;
+    flex-shrink: 0; 
+    border: none;
+    text-indent: 10px;
+}
+
+.pass input {
+    font-family: Khand;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #F0F0F0; 
+    width: 370px;
+    height: 40px;
+    flex-shrink: 0; 
+    border: none;
+    text-indent: 10px;
+}
+
+.repeat input {
+    font-family: Khand;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 100px;
+    border-radius: 8px;
+    background: #F0F0F0; 
+    width: 370px;
+    height: 40px;
+    flex-shrink: 0; 
+    border: none;
+    text-indent: 10px;
+}
+
+
+.check {
+    margin-left: 5px;
+    color: #000;
+    font-family: Inter;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+    padding-top: 5px;
+    margin-right: 50px;
+}
+
+
+.container {
+    width: 489px;
+    height: 610px;
+    flex-shrink: 0; 
+    background-color: #FFF;
+    margin-top: 80px;
+}
+
+.container2 {
+    display: flex;
+    margin-left: 60px;
+    margin-bottom: 60px;
+    margin-top: -25px;
+}
+
+.container3 {
+    display: flex;
+    margin-left: 60px;
+    margin-bottom: 60px;
+    margin-top: 105px;
+}
+
+.descriere {
+    color: #C1C1C1;
+    font-family: 'Khand', sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 40px;
+}
+
+.Inter {
+    color: #000;
+    font-family: Inter;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.descriere2 {
+    color: #C1C1C1;
+    font-family: 'Khand', sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 0;
+}
