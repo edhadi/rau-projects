@@ -1,0 +1,63 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+#taskInput {
+    padding: 10px;
+    font-size: 16px;
+    width: 60%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#addTaskBtn {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#addTaskBtn:hover {
+    background-color: #45a049;
+}
+
+#taskList {
+    list-style: none;
+    padding: 0;
+}
+
+.taskItem {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskItem button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.taskItem button:hover {
+    background-color: #d32f2f;
+}
+
+.completed {
+    text-decoration: line-through;
+}
