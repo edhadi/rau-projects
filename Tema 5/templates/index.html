@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}" />
+    <title>Note App</title>
+</head>
+<body>
+    <form action="/create" method="post">
+        <h2>Add Notes</h2>
+        <textarea name="content" required></textarea>
+        <button type="submit">Save</button>
+    </form>
+    <ul>
+        {% for note in notes %}
+            <li class="note-card">
+                <div class="note-content">
+                    <a href="{{ url_for('edit', noteid=note[0]) }}">{{ note[1][:30] }}...</a>
+                </div>
+                <div class="note-actions">
+                    <a href="{{ url_for('view', noteid=note[0]) }}">View</a>
+                    <a href="{{ url_for('delete', noteid=note[0]) }}">Delete</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
