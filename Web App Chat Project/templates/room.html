@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/room.css')}}" />
+<div class="container message-box">
+    <h2>Chat Room: {{code}}</h2>
+    <div class="member-count" name="members">
+        <h1>Members: {{ members }}</h1>
+    </div>
+    <div class="disconnect-btn-container">
+        <button type="button" name="disconnect" id="disconnect-btn" onclick="disconnectUser()">Disconnect</button>
+    </div>
+    <div class="messages" id="messages"></div>
+    <div class="inputs">
+        <input type="text" rows="3" placeholder="Type your message" name="message" id="message" />
+        <button type="button" name="send" id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var socketio = io();
+
+    const messageContainer = document.getElementById("messages");
+
+    const createMessage = (name, msg) => {
+        let cenzura = "XXX";
+        let cuvantCenzurat = "azi";
+        let content = `
+            <div class="text">
+                <span><strong>${name}</strong>`;
+        if (msg.startsWith("has entered")) {
+            content += `<span style="color: green;"> ${msg}</span>`;
+        } else if (msg.startsWith("has left")) {
+            content += `<span style="color: red;"> ${msg}</span>`;
+        } 
+        else {
+            content += `<span style="color: black;"> ${msg.replace(/\bazi\b/g, cenzura)}</span>`;
+        }
+        content += `</span>
+                    <span class="muted">${new Date().toLocaleString()}</span>
+                </div>`;
+        messageContainer.innerHTML += content;
+    };
+
+    socketio.on("message", (data) => {
+        createMessage(data.name, data.message);
+    });
+
+    const sendMessage = () => {
+        const message = document.getElementById("message");
+        if (message.value == "") return;
+        socketio.emit("message", { data: message.value });
+        message.value = "";
+    };
+
+    const disconnectUser = () => {
+        socketio.disconnect();
+        window.location.href = "/";
+    };
+
+    socketio.on("update_member_count", (data) => {
+        const memberCountElement = document.querySelector(".member-count h1");
+        if (memberCountElement) {
+            memberCountElement.innerText = `Members: ${data.members}`;
+        }
+    });
+    
+    const messageInput = document.getElementById("message");
+    messageInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+</script>
+
+{% for msg in messages %}
+<script type="text/javascript">
+    createMessage("{{msg.name}}", "{{msg.message}}");
+</script>
+{% endfor %}
+{% endblock %}

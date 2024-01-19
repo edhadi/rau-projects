@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}"/>
+<div class="outer-container">
+    <div class="inner-container">
+        <form method="post" class="chat-form">
+            <h3>Chat App</h3>
+            <h5> Username: {{session["username"]}}</h5>
+            <div class="form-group">
+                <label for="code">Room Code:</label>
+                <input type="text" id="code" placeholder="Enter Room Code" name="code" value="{{code}}" />
+            </div>
+            <button type="submit" name="join" class="btn btn-primary">Join a Room</button>
+            <button type="submit" name="create" class="btn btn-success create-btn">Create a Room</button>
+            <p id="formError" class="error-message">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert {{ category }}"> {{ message|capitalize }} </div>
+                      {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}

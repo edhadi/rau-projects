@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/liveroom.css')}}"/>
+<div class="live-rooms-container">
+    <div class="live-rooms-header">
+        <h3>Live Rooms</h3>
+    </div>
+    <ul class="room-list">
+        {% for room in live_rooms %}
+        <form method="post" action="{{ url_for('room', room=room.code) }}">
+            <li class="room-item">
+                <span class="room-info">
+                    <span class="room-code">Room Code: {{ room.code }}</span>
+                    <span class="room-members">Members: {{ room.members }}</span>
+                </span>
+                <button type="submit" name="joinroom" value="{{ room.code }}" class="join-button">Join</button>
+            </li>
+        </form>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
