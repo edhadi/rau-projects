@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/room.css')}}" />
+<div class="container message-box">
+    <h2>Chat Room: {{code}}</h2>
+    <div class="member-count" name="members">
+        <h1>Members: {{ members }}</h1>
+    </div>
+    <div class="disconnect-btn-container">
+        <input type="file" name="image" id="image" accept="image/*">
+        <button type="button" name="disconnect" id="disconnect-btn" onclick="disconnectUser()">Disconnect</button>
+    </div>
+    <div class="messages" id="messages"></div>
+    <div class="inputs">
+        <input type="text" rows="3" placeholder="Type your message" name="message" id="message" />
+        <button type="button" name="send" id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var socketio = io();
+
+    const messageContainer = document.getElementById("messages");
+
+    const createMessage = (name, msg, isImage = false) => {
+        let content;
+        if (isImage) {
+            content = `
+                <div class="image">
+                    <span><strong>${name}</strong></span>
+                    <img src="${msg}" />
+                    <span class="muted">${new Date().toLocaleString()}</span>
+                </div>`;
+        } else {
+            content = `
+                <div class="text">
+                    <span><strong>${name}</strong>: ${msg}</span>
+                    <span class="muted">${new Date().toLocaleString()}</span>
+                </div>`;
+        }
+        messageContainer.innerHTML += content;
+    };
+
+    socketio.on("message", (data) => {
+        if (data.is_image) {
+            createMessage(data.name, data.message, true);
+        } else {
+            createMessage(data.name, data.message);
+        }
+    });
+
+    const sendMessage = () => {
+        const message = document.getElementById("message");
+        if (message.value == "") return;
+        socketio.emit("message", { data: message.value });
+        message.value = "";
+    };
+
+    const sendImage = () => {
+    const imageInput = document.getElementById("image");
+    const imageFile = imageInput.files[0];
+    if (!imageFile) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        socketio.emit("image", { data: e.target.result });
+        imageInput.value = "";
+    };
+        reader.readAsDataURL(imageFile);
+    };
+
+    const disconnectUser = () => {
+        socketio.disconnect();
+        window.location.href = "/";
+    };
+
+    socketio.on("update_member_count", (data) => {
+        const memberCountElement = document.querySelector(".member-count h1");
+        if (memberCountElement) {
+            memberCountElement.innerText = `Members: ${data.members}`;
+        }
+    });
+
+    const messageInput = document.getElementById("message");
+    messageInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    const sendButton = document.getElementById("send-btn");
+    sendButton.addEventListener("click", function () {
+        sendMessage();
+        sendImage();
+    });
+
+    const imageInput = document.getElementById("image");
+    imageInput.addEventListener("change", function () {
+    });
+</script>
+
+{% for msg in messages %}
+<script type="text/javascript">
+    createMessage("{{msg.name}}", "{{msg.message}}");
+</script>
+{% endfor %}
+{% endblock %}

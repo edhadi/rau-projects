@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add any additional stylesheets or styling here -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-group {
+            display: flex;
+        }
+        .btn-group form {
+            margin-right: 5px;
+        }
+        .nav-item {
+            cursor: pointer;
+        }
+        .alert.success {
+            margin-top: 5px;
+            margin-left: 10px;
+            color: green;
+        }
+  
+        .alert.error {
+            margin-top: 5px;
+            margin-left: 15px;
+            color: red;
+        }
+
+        .error-message {
+            color: #ff5555;
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+
+        button {
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+
+        .btn-home {
+            margin-top: 5px;
+            margin-left: 10px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-logout {
+            margin-top: 5px;
+            margin-left: 10px;
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Admin Page</h1>
+        <form action="" method="post">
+            <button type="submit" class="btn-home"  name="home" value="true">Home</button>
+            <button type="submit" class="btn-logout"  name="logout" value="true">Logout</button>
+        </form>
+        <p id="formError" class="error-message">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  {% for category, message in messages %}
+                    <div class="alert {{ category }}"> {{ message|capitalize }} </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            </p>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="users-tab" data-toggle="tab" href="#users-section">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="add-user-tab" data-toggle="tab" href="#add-user-section">Add User</a>
+            <li class="nav-item">
+                <a class="nav-link" id="update-username-tab" data-toggle="tab" href="#update-username-section">Update Username</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="update-email-tab" data-toggle="tab" href="#update-email-section">Update Email</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="update-password-tab" data-toggle="tab" href="#update-password-section">Update Password</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="delete-user-tab" data-toggle="tab" href="#delete-user-section">Delete User</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4">
+            <!-- Users Section -->
+            <div class="tab-pane fade show active" id="users-section">
+                <div class="list-group">
+                    {% for user in users %}
+                        <div class="list-group-item">
+                            <span>{{ user.username }} - {{ user.email }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Add User Section -->
+            <div class="tab-pane fade" id="add-user-section">
+                <form method="post" action="{{ url_for('admin') }}" class="form-inline">
+                    <input type="text" name="addusername" placeholder="Username" class="form-control mb-2 mr-sm-2">
+                    <input type="email" name="addemail" placeholder="Email" class="form-control mb-2 mr-sm-2">
+                    <input type="password" name="addpassword" placeholder="Password" class="form-control mb-2 mr-sm-2">
+                    
+                    <!-- Admin Checkbox -->
+                    <div class="form-check mb-2 mr-sm-2">
+                        <input class="form-check-input" type="checkbox" name="addisadmin">
+                        <label class="form-check-label" for="addisadmin">Admin</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mb-2">Add User</button>
+                </form>
+            </div>
+
+            <!-- Update Username Section -->
+            <div class="tab-pane fade" id="update-username-section">
+                <div class="list-group">
+                    {% for user in users %}
+                        <div class="list-group-item">
+                            <span>{{ user.username }} - {{ user.email }}</span>
+                            <form method="post" action="{{ url_for('admin') }}" class="d-flex align-items-center">
+                                <input type="hidden" name="username_to_update" value="{{ user.username }}">
+                                <input type="text" name="new_username" placeholder="New Username" class="form-control ml-2">
+                                <button type="submit" class="btn btn-primary btn-sm ml-2">Update</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Update Email Section -->
+            <div class="tab-pane fade" id="update-email-section">
+                <div class="list-group">
+                    {% for user in users %}
+                        <div class="list-group-item">
+                            <span>{{ user.username  }} - {{ user.email }}</span>
+                            <form method="post" action="{{ url_for('admin') }}" class="d-flex align-items-center">
+                                <input type="hidden" name="username_to_update" value="{{ user.username }}">
+                                <input type="text" name="new_email" placeholder="New Email" class="form-control ml-2">
+                                <button type="submit" class="btn btn-primary btn-sm ml-2">Update</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Update Password Section -->
+            <div class="tab-pane fade" id="update-password-section">
+                <div class="list-group">
+                    {% for user in users %}
+                <div class="list-group-item">
+                    <span>{{ user.username }} - {{ user.email }}</span>
+                    <form method="post" action="{{ url_for('admin') }}" class="d-flex align-items-center">
+                        <input type="hidden" name="username_to_update" value="{{ user.username }}">
+                        <input type="password" name="new_password" placeholder="New Password" class="form-control ml-2">
+                        <button type="submit" class="btn btn-primary btn-sm ml-2">Update</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+            <!-- Delete User Section -->
+            <div class="tab-pane fade" id="delete-user-section">
+                <div class="list-group">
+                    {% for user in users %}
+                        <div class="list-group-item">
+                            <span>{{ user.username }} - {{ user.email }}</span>
+                            <form method="post" action="{{ url_for('admin') }}">
+                                <input type="hidden" name="username_to_delete" value="{{ user.username }}">
+                                <button type="submit" class="btn btn-danger ml-2">Delete User</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add any additional scripts here -->
+</body>
+</html>

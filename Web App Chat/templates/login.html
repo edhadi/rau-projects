@@ -1,0 +1,43 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="post">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="email" id="email" name="email" placeholder="Email">
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="password" id="password" name="password" placeholder="Password">
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            <div class="description">
+                <p>Forgot Password? <a href="{{ url_for('register') }}">Click Here</a></p>
+            </div>
+            <div class="description">
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Click Here</a></p>
+            </div>
+            <p id="formError" class="error-message">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  {% for category, message in messages %}
+                    <div class="alert {{ category }}"> {{ message|capitalize }} </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            </p>
+            <button type="submit" class="btn" value="Login">Login</button>
+        </form>        
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,15 @@
+<nav id="home-navbar" class="navbar navbar-expand-lg" style="background-color: #ffffff;">
+    <div class="container-fluid">
+        <form class="d-flex ms-auto me-2" method="post">
+            {% if session["isadmin"] %}
+            <button class="btn btn-outline-success" type="submit" name="admin" formaction="{{ url_for('admin') }}">Admin</button>
+            {% endif %}
+            <div style="margin-right: 10px;"></div>
+            <button class="btn btn-outline-success" type="submit" name="liverooms" formaction="{{ url_for('live_rooms') }}">Rooms</button>
+            <div style="margin-right: 10px;"></div>
+            <button class="btn btn-outline-success" type="submit" name="account" formaction="{{ url_for('account_management') }}">Account</button>
+            <div style="margin-right: 10px;"></div>
+            <button class="btn btn-outline-danger" type="submit" name="logout" value="true">Logout</button>
+        </form>
+    </div>
+</nav>
